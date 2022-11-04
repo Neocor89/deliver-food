@@ -1,5 +1,3 @@
-const { plugin } = require("twrnc");
-
 module.exports = {
   content: [
     "./App.{js,jsx,ts,tsx}",
@@ -9,13 +7,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    plugin(({ addUtilities }) => {
-      addUtilities({
-        input: {
-          outline: `none`,
-        },
-      });
-    }),
-  ],
+  plugins: [],
 };
