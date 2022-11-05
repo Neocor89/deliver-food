@@ -4,14 +4,16 @@ import tw from "twrnc";
 
 const CategoriesCard = ({ imgUrl, title }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={tw`relative mr-2`}>
       <Image
-        style={tw`h-10 w-10`}
+        style={tw`h-20 w-20 rounded`}
         source={{
           uri: imgUrl,
         }}
       />
-      <Text>{title}</Text>
+      <Text style={tw`absolute left-1 bottom-1 text-white font-bold`}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
