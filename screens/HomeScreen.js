@@ -39,7 +39,8 @@ const HomeScreen = () => {
           ...,
           dishes[] ->
           }
-        }`
+        }
+        `
       )
       .then((data) => {
         setFeaturedCategories(data);
