@@ -6,7 +6,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
 import {
@@ -17,15 +17,37 @@ import {
 } from "react-native-heroicons/outline";
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
+import sanityClient from "../sanity";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShow: false,
     });
   }, []);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+        *[_type == "featured"] {
+          ...,
+        restaurants[]->{
+          ...,
+          dishes[] ->
+          }
+        }`
+      )
+      .then((data) => {
+        setFeaturedCategories(data);
+      });
+  }, []);
+
+  console.log(featuredCategories);
+
   //: style={tw``}
   return (
     <SafeAreaView style={tw`bg-white pt-5`}>
@@ -51,7 +73,7 @@ const HomeScreen = () => {
       <View style={tw`flex-row items-center w-full pb-2 mx-auto px-2`}>
         <View style={tw`flex-row flex-1 mx-auto bg-gray-200 p-3`}>
           <MagnifyingGlassIcon size={20} color="gray" />
-          <TextInput //: Check info sur tailwind.config file for custom classes
+          <TextInput
             style={{ outline: "none", color: "gray" }}
             placeholder="Restaurants and cuisines"
             keyboardType="default"
@@ -69,22 +91,14 @@ const HomeScreen = () => {
         {/* Categories */}
         <Categories />
 
-        {/* Featured Rows */}
-        <FeaturedRow
-          id="123"
-          title="Featured"
-          description="Paid placements from yours partners"
-        />
-        <FeaturedRow
-          id="1234"
-          title="Tasty Dicounts"
-          description="Everyone's be enjoying these juicy dicounts!"
-        />
-        <FeaturedRow
-          id="1235"
-          title="Offers near you"
-          description="Why not support your local restaurants tonight!"
-        />
+        {featuredCategories?.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );

@@ -9,14 +9,15 @@ import restaurant from "./restaurant";
 import category from "./category";
 import dish from "./dish";
 import featured from "./featured";
-
+//: Create Churreria food truck restaurant and linked with Dessert category
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
   name: "default",
   types: schemaTypes.concat([
-    /* Names of the different backend schemas 
-    must match with files in schema folder 
+    /*
+    : Names of the different backend schemas 
+    : must match with files in schema folder 
     */
     restaurant,
     category,

@@ -1,10 +1,35 @@
 import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
 import tw from "twrnc";
 import RestaurantCard from "./RestaurantCard";
+import sanityClient, { urlFor } from "../sanity";
 
 const FeaturedRow = ({ id, title, description }) => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+        *[_type == "featured" && _id == $id]{
+          ...,
+          resaturants[]->{
+            ...,
+            dishes[]->,
+            type-> {
+              name
+            }
+          },
+        }[0]
+    `,
+        { id }
+      )
+      .then((data) => {
+        setRestaurants(data?.restaurants);
+      });
+  }, [id]);
+
   return (
     <View>
       <View style={tw`mt-4 flex-row items-center justify-between px-3`}>
@@ -22,43 +47,21 @@ const FeaturedRow = ({ id, title, description }) => {
         showsHorizontalScrollIndicator={false}
         style={tw`pt-4`}
       >
-        {/* THIS ERROR IS HERE  */}
-        <RestaurantCard
-          id={id}
-          imgUrl="https://res.cloudinary.com/dwoifuutn/image/upload/v1666282176/cld-sample-4.jpg"
-          title="Go! Sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="This is a good restaurants"
-          dishes={[]}
-          long={20}
-          lat={0}
-        />
-        <RestaurantCard
-          id={id}
-          imgUrl="https://res.cloudinary.com/dwoifuutn/image/upload/v1666282176/cld-sample-4.jpg"
-          title="Go! Sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="This is a good restaurants"
-          dishes={[]}
-          long={20}
-          lat={0}
-        />
-        <RestaurantCard
-          id={id}
-          imgUrl="https://res.cloudinary.com/dwoifuutn/image/upload/v1666282176/cld-sample-4.jpg"
-          title="Go! Sushi"
-          rating={4.5}
-          genre="Japanese"
-          address="123 Main Street"
-          short_description="This is a good restaurants"
-          dishes={[]}
-          long={20}
-          lat={0}
-        />
+        {restaurants?.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={urlFor(restaurant.image)}
+            address={restaurant.address}
+            title={restaurant.name}
+            dishes={restaurant.dishes}
+            rating={restaurant.rating}
+            short_description={restaurant.short_description}
+            genre={restaurant.type?.name}
+            long={restaurant.long}
+            lat={restaurant.lat}
+          />
+        ))}
       </ScrollView>
     </View>
   );
