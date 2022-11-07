@@ -4,6 +4,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { urlFor } from "../sanity";
 import tw from "twrnc";
 
+//: #Problem in data recovery
+
 const RestaurantScreen = () => {
   const navigation = useNavigation();
   const {
@@ -34,7 +36,7 @@ const RestaurantScreen = () => {
             uri: urlFor(imgUrl),
           }}
         />
-        {/* <Text>{title}</Text> */}
+        <Text style={tw`w-full bg-gray-200 p-1`}>{title}</Text>
       </View>
     </ScrollView>
   );
