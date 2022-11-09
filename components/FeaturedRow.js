@@ -33,7 +33,7 @@ const FeaturedRow = ({ id, title, description }) => {
   console.log(restaurants);
 
   return (
-    <View>
+    <View key={restaurants}>
       <View style={tw`mt-4 flex-row items-center justify-between px-3`}>
         <Text style={tw`font-bold text-lg`}>{title}</Text>
         <ArrowRightIcon color="#06d6a0" />
@@ -42,6 +42,7 @@ const FeaturedRow = ({ id, title, description }) => {
       <Text style={tw`text-xs text-gray-500 px-3`}>{description}</Text>
 
       <ScrollView
+        key={restaurants}
         horizontal
         contentContainerStyle={{
           paddingHorizontal: 10,
@@ -51,7 +52,7 @@ const FeaturedRow = ({ id, title, description }) => {
       >
         {restaurants?.map((restaurant) => (
           <RestaurantCard
-            key={restaurant._id}
+            key={restaurant.id}
             id={restaurant._id}
             imgUrl={restaurant.image}
             address={restaurant.address}

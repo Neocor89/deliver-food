@@ -35,6 +35,7 @@ const RestaurantCard = ({
           lat,
         });
       }}
+      key={id}
       style={{
         background: "white",
         width: "min-content",

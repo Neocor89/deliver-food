@@ -4,8 +4,6 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { urlFor } from "../sanity";
 import tw from "twrnc";
 
-//: #Problem in data recovery
-
 const RestaurantScreen = () => {
   const navigation = useNavigation();
   const {
