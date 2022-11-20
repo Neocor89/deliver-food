@@ -53,7 +53,7 @@ const FeaturedRow = ({ id, title, description }) => {
           <div key={index}>
             <RestaurantCard
               id={restaurant._id}
-              imgUrl={urlFor(restaurant.image)}
+              imgUrl={restaurant.image}
               address={restaurant.address}
               title={restaurant.name}
               dishes={restaurant.dishes}

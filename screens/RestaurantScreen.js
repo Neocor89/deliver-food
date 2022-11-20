@@ -1,3 +1,4 @@
+import { LogBox } from "react-native";
 import { View, Text, ScrollView, Image } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -24,6 +25,10 @@ const RestaurantScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({});
   }, []);
+
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
 
   return (
     <ScrollView>

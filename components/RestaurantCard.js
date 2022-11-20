@@ -1,3 +1,4 @@
+import { LogBox } from "react-native";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import tw from "twrnc";
@@ -18,6 +19,10 @@ const RestaurantCard = ({
   lat,
 }) => {
   const navigation = useNavigation();
+
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
 
   return (
     <TouchableOpacity
@@ -46,9 +51,7 @@ const RestaurantCard = ({
     >
       <Image
         style={tw`h-36 w-64 rounded`}
-        source={{
-          uri: urlFor(imgUrl),
-        }}
+        source={{ uri: urlFor(imgUrl).url() }}
       />
 
       <View style={tw`px-5 pb-4`}>
