@@ -14,7 +14,7 @@ const FeaturedRow = ({ id, title, description }) => {
         `
         *[_type == 'featured' && _id == $id]{
           ...,
-          resaturants[]->{
+          restaurants[]->{
             ...,
             dishes[]->,
             type-> {
@@ -33,7 +33,7 @@ const FeaturedRow = ({ id, title, description }) => {
   console.log(restaurants);
 
   return (
-    <View key={restaurants}>
+    <View>
       <View style={tw`mt-4 flex-row items-center justify-between px-3`}>
         <Text style={tw`font-bold text-lg`}>{title}</Text>
         <ArrowRightIcon color="#06d6a0" />
@@ -42,7 +42,6 @@ const FeaturedRow = ({ id, title, description }) => {
       <Text style={tw`text-xs text-gray-500 px-3`}>{description}</Text>
 
       <ScrollView
-        key={restaurants}
         horizontal
         contentContainerStyle={{
           paddingHorizontal: 10,
@@ -50,20 +49,21 @@ const FeaturedRow = ({ id, title, description }) => {
         showsHorizontalScrollIndicator={false}
         style={tw`pt-4`}
       >
-        {restaurants?.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.id}
-            id={restaurant._id}
-            imgUrl={restaurant.image}
-            address={restaurant.address}
-            title={restaurant.name}
-            dishes={restaurant.dishes}
-            rating={restaurant.rating}
-            short_description={restaurant.short_description}
-            genre={restaurant.type?.name}
-            long={restaurant.long}
-            lat={restaurant.lat}
-          />
+        {restaurants?.map((restaurant, index) => (
+          <div key={index}>
+            <RestaurantCard
+              id={restaurant._id}
+              imgUrl={urlFor(restaurant.image)}
+              address={restaurant.address}
+              title={restaurant.name}
+              dishes={restaurant.dishes}
+              rating={restaurant.rating}
+              description={restaurant.short_description}
+              genre={restaurant.type?.name}
+              long={restaurant.long}
+              lat={restaurant.lat}
+            />
+          </div>
         ))}
       </ScrollView>
     </View>

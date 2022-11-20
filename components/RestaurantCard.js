@@ -21,6 +21,7 @@ const RestaurantCard = ({
 
   return (
     <TouchableOpacity
+      key={id}
       onPress={() => {
         navigation.navigate("Restaurant", {
           id,
@@ -35,7 +36,6 @@ const RestaurantCard = ({
           lat,
         });
       }}
-      key={id}
       style={{
         background: "white",
         width: "min-content",

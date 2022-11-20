@@ -49,7 +49,6 @@ const HomeScreen = () => {
 
   console.log(featuredCategories);
 
-  //: style={tw``}
   return (
     <SafeAreaView style={tw`bg-white pt-5`}>
       {/* Header */}
@@ -70,7 +69,7 @@ const HomeScreen = () => {
         <UserIcon size={30} color="#06d6a0" />
       </View>
 
-      {/* SearchBar style={tw`input`} */}
+      {/* SearchBar */}
       <View style={tw`flex-row items-center w-full pb-2 mx-auto px-2`}>
         <View style={tw`flex-row flex-1 mx-auto bg-gray-200 p-3`}>
           <MagnifyingGlassIcon size={20} color="gray" />
@@ -93,12 +92,13 @@ const HomeScreen = () => {
         <Categories />
 
         {featuredCategories?.map((category) => (
-          <FeaturedRow
-            key={category._id}
-            id={category._id}
-            title={category.name}
-            description={category.short_description}
-          />
+          <div key={category._id}>
+            <FeaturedRow
+              id={category._id}
+              title={category.name}
+              description={category.short_description}
+            />
+          </div>
         ))}
       </ScrollView>
     </SafeAreaView>

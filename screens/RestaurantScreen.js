@@ -29,6 +29,7 @@ const RestaurantScreen = () => {
     <ScrollView>
       <View>
         <Image
+          key={id}
           style={tw`w-full h-56 bg-gray-300 p-4`}
           source={{
             uri: urlFor(imgUrl),
