@@ -86,12 +86,13 @@ const RestaurantScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View>
+        <View style={tw`pb-22`}>
           <Text style={tw`px-4 pt-6 mb-3 font-bold text-xl`}>Menu</Text>
 
           {dishes.map((dish, index) => (
             <div key={index}>
               <DishRow
+                key={dish.id}
                 id={dish.id}
                 name={dish.name}
                 short_description={dish.short_description}
