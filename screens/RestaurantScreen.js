@@ -1,6 +1,6 @@
 import { LogBox, TouchableOpacity } from "react-native";
 import { View, Text, ScrollView, Image } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { urlFor } from "../sanity";
 import tw from "twrnc";
@@ -13,12 +13,17 @@ import {
 import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
 import DishRow from "../components/DishRow";
 import BasketIcon from "../components/BasketIcon";
+import { useDispatch } from "react-redux";
+import { setRestaurant } from "../features/restaurantSlice";
 
 const RestaurantScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  //! Replace 6 id for _id
   const {
     params: {
-      id,
+      _id,
       imgUrl,
       title,
       rating,
@@ -30,6 +35,23 @@ const RestaurantScreen = () => {
       lat,
     },
   } = useRoute();
+
+  useEffect(() => {
+    dispatch(
+      setRestaurant({
+        _id,
+        imgUrl,
+        title,
+        rating,
+        genre,
+        address,
+        short_description,
+        dishes,
+        long,
+        lat,
+      })
+    );
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -48,7 +70,7 @@ const RestaurantScreen = () => {
       <ScrollView>
         <View>
           <Image
-            key={id}
+            key={_id}
             style={tw`w-full h-56 bg-gray-300 p-4`}
             source={{
               uri: urlFor(imgUrl).url(),
@@ -92,8 +114,8 @@ const RestaurantScreen = () => {
           {dishes.map((dish, index) => (
             <div key={index}>
               <DishRow
-                key={dish.id}
-                id={dish.id}
+                key={dish._id}
+                id={dish._id}
                 name={dish.name}
                 short_description={dish.short_description}
                 price={dish.price}

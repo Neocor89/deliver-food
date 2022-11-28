@@ -1,13 +1,42 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, SafeAreaView } from "react-native";
+import tw from "twrnc";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRestaurant } from "../features/restaurantSlice";
+import { selectBasketItems } from "../features/basketSlice";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
+  //: Acess to store state
+  const restaurant = useSelector(selectRestaurant);
+  const items = useSelector(selectBasketItems);
+  const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const groupedItems = items.reduce((results, item) => {
+      (results[item.id] = results[item.id] || []).push(item);
+      return results;
+    }, {});
+
+    setGroupedItemsInBasket(groupedItems);
+  }, [items]);
+
+  console.log(groupedItemsInBasket);
+
   return (
-    <View>
-      <Text>BasketScreen</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <View>
+          <View>
+            <Text style={tw`text-center mt-3 text-gray-500`}>
+              {restaurant.title}
+            </Text>
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
