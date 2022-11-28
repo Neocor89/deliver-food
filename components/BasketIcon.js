@@ -20,7 +20,9 @@ const BasketIcon = () => {
         onPress={() => navigation.navigate("Basket")}
         style={tw`mx-5 bg-[#06d6a0] p-4 rounded-lg flex-row items-center px-3 py-3 ml-2`}
       >
-        <Text style={tw`text-white font-extrabold text-lg bg-[#0EB88C] px-2`}>
+        <Text
+          style={tw`text-white font-extrabold text-lg bg-[#3c6e71] px-2 mr-2`}
+        >
           {items.length}
         </Text>
         <Text style={tw`text-[16px] font-medium`}>View Basket</Text>

@@ -26,11 +26,11 @@ const BasketScreen = () => {
   console.log(groupedItemsInBasket);
 
   return (
-    <SafeAreaView>
-      <View>
-        <View>
+    <SafeAreaView style={tw`flex-1 bg-white`}>
+      <View style={tw`flex-1 bg-gray-100`}>
+        <View style={tw`p-5 border-[#06d6a0] shadow-sm`}>
           <View>
-            <Text style={tw`text-center mt-3 text-gray-500`}>
+            <Text style={tw`text-center text-gray-500`}>
               {restaurant.title}
             </Text>
           </View>
