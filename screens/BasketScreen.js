@@ -1,10 +1,19 @@
-import { View, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import tw from "twrnc";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
-import { selectBasketItems } from "../features/basketSlice";
+import { removeFromBasket, selectBasketItems } from "../features/basketSlice";
+import { urlFor } from "../sanity";
+import { NumericFormat } from "react-number-format";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
@@ -25,15 +34,63 @@ const BasketScreen = () => {
 
   console.log(groupedItemsInBasket);
 
+  /*
+   : #HERE 
+   */
+  //TODO >> Continuation to Layout components of Bascket page
+
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white mt-3`}>
       <View style={tw`flex-1 bg-gray-100`}>
-        <View style={tw`p-5 border-[#06d6a0] shadow-sm`}>
+        <View style={tw`border-[#06d6a0] shadow-sm`}>
           <View>
-            <Text style={tw`text-center text-gray-500`}>
+            <Text style={tw`text-center text-gray-500 font-medium mb-3`}>
               {restaurant.title}
             </Text>
           </View>
+
+          <View style={tw`flex-row items-center px-4 py-3 bg-white`}>
+            <Image
+              style={tw`h-7 w-7 bg-gray-300 p-3 rounded-full`}
+              source={{
+                uri: "https://tse3.mm.bing.net/th?id=OIP.co9InwNa4s3sK7rOKcelVAAAAA&pid=Api&P=0",
+              }}
+            />
+            <Text style={tw`flex-1 text-xs ml-2`}>Delivery in 50-75 min</Text>
+            <TouchableOpacity>
+              <Text style={tw`text-[#06d6a0]`}>Change</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView>
+            {Object.entries(groupedItemsInBasket).map(([key, items]) => (
+              <View key={key}>
+                <Text>{items.length} x</Text>
+                <Image
+                  style={tw`h-12 w-12 rounded-full`}
+                  source={{ uri: urlFor(items[0]?.image).url() }}
+                />
+                <Text style={tw`flex-1`}>{items[0]?.name}</Text>
+
+                <Text style={tw`flex-1`}>
+                  <NumericFormat
+                    displayType="text"
+                    value={items[0]?.price}
+                    prefix="$"
+                  />
+                </Text>
+
+                <TouchableOpacity>
+                  <Text
+                    style={tw`text-[#06d6a0] text-xs`}
+                    onPress={() => dispatch(removeFromBasket({ id: key }))}
+                  >
+                    Remove
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
