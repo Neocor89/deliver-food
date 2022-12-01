@@ -11,7 +11,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
-import { removeFromBasket, selectBasketItems } from "../features/basketSlice";
+import {
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketTotal,
+} from "../features/basketSlice";
 import { urlFor } from "../sanity";
 import { NumericFormat } from "react-number-format";
 
@@ -19,10 +23,9 @@ const BasketScreen = () => {
   //: Acess to store state
   const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
+  const basketTotal = useSelector(selectBasketTotal);
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
-
-  //! CONTINUE SEARCH PROBLEM DISPLAYING PRICE OF ITEMS IN BASKET *
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -64,7 +67,7 @@ const BasketScreen = () => {
                 key={index}
                 style={tw`flex-row items-center mt-2 px-4 py-3 bg-white`}
               >
-                <Text style={tw`px-2`}>{items.length} x</Text>
+                <Text style={tw`px-1`}>{items.length} x</Text>
                 <Image
                   style={tw`h-12 w-12 rounded-full`}
                   source={{ uri: urlFor(items[0]?.image).url() }}
@@ -73,8 +76,9 @@ const BasketScreen = () => {
                   {items[0]?.name}
                 </Text>
 
-                <Text key={index} style={tw`flex-1`}>
+                <Text style={tw`flex-1`}>
                   <NumericFormat
+                    key={index}
                     displayType="text"
                     value={items[0]?.price}
                     prefix="$"
@@ -92,6 +96,37 @@ const BasketScreen = () => {
               </View>
             ))}
           </ScrollView>
+
+          <View style={tw`p-5 bg-white mt-5 px-4`}>
+            <View style={tw`flex-row justify-between`}>
+              <Text style={tw`text-gray-400`}>Subtotal</Text>
+              <Text style={tw`text-gray-400`}>
+                <NumericFormat
+                  displayType="text"
+                  value={basketTotal}
+                  prefix="$"
+                />
+              </Text>
+            </View>
+
+            <View style={tw`flex-row justify-between`}>
+              <Text style={tw`text-gray-400`}>Delivery fee</Text>
+              <Text style={tw`text-gray-400`}>
+                <NumericFormat displayType="text" value={5.99} prefix="$" />
+              </Text>
+            </View>
+
+            <View style={tw`flex-row justify-between`}>
+              <Text>Order Total</Text>
+              <Text style={tw`font-extrabold`}>
+                <NumericFormat
+                  displayType="text"
+                  value={basketTotal + 5.99}
+                  prefix="$"
+                />
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </SafeAreaView>
