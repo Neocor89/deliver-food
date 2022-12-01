@@ -58,9 +58,9 @@ const BasketScreen = () => {
           </View>
 
           <ScrollView>
-            {Object.entries(groupedItemsInBasket).map(([key, items]) => (
+            {Object.entries(groupedItemsInBasket).map(([index, items]) => (
               <View
-                key={key}
+                key={index}
                 style={tw`flex-row items-center mt-2 px-4 py-3 bg-white`}
               >
                 <Text style={tw`px-2`}>{items.length} x</Text>
@@ -72,7 +72,7 @@ const BasketScreen = () => {
                   {items[0]?.name}
                 </Text>
 
-                <Text key={key} style={tw`flex-1`}>
+                <Text key={index} style={tw`flex-1`}>
                   <NumericFormat
                     displayType="text"
                     value={items[0]?.price}
@@ -83,7 +83,7 @@ const BasketScreen = () => {
                 <TouchableOpacity>
                   <Text
                     style={tw`text-[#06d6a0] text-xs`}
-                    onPress={() => dispatch(removeFromBasket({ id: key }))}
+                    onPress={() => dispatch(removeFromBasket({ id: index }))}
                   >
                     Remove
                   </Text>
