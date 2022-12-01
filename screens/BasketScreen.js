@@ -16,12 +16,13 @@ import { urlFor } from "../sanity";
 import { NumericFormat } from "react-number-format";
 
 const BasketScreen = () => {
-  const navigation = useNavigation();
   //: Acess to store state
   const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
+
+  //! CONTINUE SEARCH PROBLEM DISPLAYING PRICE OF ITEMS IN BASKET *
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
