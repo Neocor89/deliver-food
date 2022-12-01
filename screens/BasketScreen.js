@@ -11,11 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
-import {
-  removeFromBasket,
-  selectBasketItems,
-  selectBasketTotal,
-} from "../features/basketSlice";
+import { removeFromBasket, selectBasketItems } from "../features/basketSlice";
 import { urlFor } from "../sanity";
 import { NumericFormat } from "react-number-format";
 
@@ -24,7 +20,6 @@ const BasketScreen = () => {
   //: Acess to store state
   const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
-  const basketTotal = useSelector(selectBasketTotal);
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
 
@@ -77,7 +72,7 @@ const BasketScreen = () => {
                   {items[0]?.name}
                 </Text>
 
-                <Text style={tw`flex-1`}>
+                <Text key={key} style={tw`flex-1`}>
                   <NumericFormat
                     displayType="text"
                     value={items[0]?.price}

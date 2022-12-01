@@ -52,7 +52,7 @@ const FeaturedRow = ({ id, title, description }) => {
         {restaurants?.map((restaurant, index) => (
           <div key={index}>
             <RestaurantCard
-              id={restaurant._id}
+              id={restaurant.id}
               imgUrl={restaurant.image}
               address={restaurant.address}
               title={restaurant.name}
