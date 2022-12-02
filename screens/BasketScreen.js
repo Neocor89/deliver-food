@@ -99,17 +99,18 @@ const BasketScreen = () => {
 
           <View style={tw`p-5 bg-white mt-5 px-4`}>
             <View style={tw`flex-row justify-between`}>
-              <Text style={tw`text-gray-400`}>Subtotal</Text>
+              <Text style={tw`text-gray-400 mb-2`}>Subtotal</Text>
               <Text style={tw`text-gray-400`}>
                 <NumericFormat
                   displayType="text"
+                  decimalScale={2}
                   value={basketTotal}
                   prefix="$"
                 />
               </Text>
             </View>
 
-            <View style={tw`flex-row justify-between`}>
+            <View style={tw`flex-row justify-between mb-2`}>
               <Text style={tw`text-gray-400`}>Delivery fee</Text>
               <Text style={tw`text-gray-400`}>
                 <NumericFormat displayType="text" value={5.99} prefix="$" />
@@ -121,6 +122,7 @@ const BasketScreen = () => {
               <Text style={tw`font-extrabold`}>
                 <NumericFormat
                   displayType="text"
+                  decimalScale={2}
                   value={basketTotal + 5.99}
                   prefix="$"
                 />
