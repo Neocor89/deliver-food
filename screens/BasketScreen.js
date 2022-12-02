@@ -80,6 +80,7 @@ const BasketScreen = () => {
                   <NumericFormat
                     key={index}
                     displayType="text"
+                    decimalScale={2}
                     value={items[0]?.price}
                     prefix="$"
                   />
@@ -129,6 +130,12 @@ const BasketScreen = () => {
               </Text>
             </View>
           </View>
+
+          <TouchableOpacity style={tw`m-4 rounded-lg bg-[#06d6a0] p-3`}>
+            <Text style={tw`text-white text-center text-lg font-bold`}>
+              Place Order
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

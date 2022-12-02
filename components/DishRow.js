@@ -38,7 +38,12 @@ const DishRow = ({ id, name, short_description, price, image }) => {
             <Text style={tw`text-lg mb-1`}>{name}</Text>
             <Text style={tw`text-gray-400`}>{short_description}</Text>
             <Text style={tw`text-gray-600 mt-2`}>
-              <NumericFormat displayType="text" value={price} prefix="$" />
+              <NumericFormat
+                displayType="text"
+                decimalScale={2}
+                value={price}
+                prefix="$"
+              />
             </Text>
           </View>
 

@@ -27,7 +27,12 @@ const BasketIcon = () => {
         </Text>
         <Text style={tw`text-[16px] font-medium`}>View Basket</Text>
         <Text style={tw`text-lg text-white font-extrabold ml-2`}>
-          <NumericFormat displayType="text" value={basketTotal} prefix="$" />
+          <NumericFormat
+            displayType="text"
+            decimalScale={2}
+            value={basketTotal}
+            prefix="$"
+          />
         </Text>
       </TouchableOpacity>
     </View>
