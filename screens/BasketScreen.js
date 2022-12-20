@@ -26,6 +26,7 @@ const BasketScreen = () => {
   const basketTotal = useSelector(selectBasketTotal);
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -117,7 +118,7 @@ const BasketScreen = () => {
                 <NumericFormat displayType="text" value={5.99} prefix="$" />
               </Text>
             </View>
-
+            {/* CONTINUE HERE  */}
             <View style={tw`flex-row justify-between`}>
               <Text>Order Total</Text>
               <Text style={tw`font-extrabold`}>
@@ -131,7 +132,10 @@ const BasketScreen = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={tw`m-4 rounded-lg bg-[#06d6a0] p-3`}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("PreparingOrderScreen")}
+            style={tw`m-4 rounded-lg bg-[#06d6a0] p-3`}
+          >
             <Text style={tw`text-white text-center text-lg font-bold`}>
               Place Order
             </Text>
