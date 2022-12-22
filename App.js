@@ -7,11 +7,15 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import BasketScreen from "./screens/BasketScreen";
 import PreparingOrderScreen from "./screens/PreparingOrderScreen";
+import MapboxGL from "@react-native-mapbox-gl/maps";
 import DeliveryScreen from "./screens/DeliveryScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  MapboxGL.setAccessToken(
+    "pk.eyJ1IjoiYmVuZGV2d2ViIiwiYSI6ImNsNzIzeGV0NTBnam0zbm45MWs3cGhyNmYifQ.EX7eHoGWNE51CQBx30oCUQ"
+  );
   return (
     <NavigationContainer>
       <Provider store={store}>

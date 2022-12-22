@@ -6,12 +6,16 @@ import { selectRestaurant } from "../features/restaurantSlice";
 import tw from "twrnc";
 import { XMarkIcon } from "react-native-heroicons/solid";
 import * as Progress from "react-native-progress";
-import MapView from "react-native-maps";
 
 const DeliveryScreen = () => {
   const navigation = useNavigation();
   const restaurant = useSelector(selectRestaurant);
+  // const Map = ReactMapboxGl({
+  //   accessToken:
+  //     "pk.eyJ1IjoiZmFicmljOCIsImEiOiJjaWc5aTV1ZzUwMDJwdzJrb2w0dXRmc2d0In0.p6GGlfyV-WksaDV_KdN27A",
+  // });
 
+  // TODO >>> HERE CONTINUE DISPLAYIND MAP OF RESTAURANTS
   return (
     <View style={tw`bg-[#06d6a0] flex-1`}>
       <View style={tw`flex-row justify-between items-center p-5`}>
@@ -41,15 +45,6 @@ const DeliveryScreen = () => {
           Your Order at {restaurant.title} is being prepared
         </Text>
       </View>
-      {/* <MapView
-        initialRegion={{
-          latitude: restaurant.lat,
-          longitude: restaurant.long,
-          latitudeDelta: 0.0005,
-          longitudeDelta: 0.0005,
-        }}
-        style={tw`flex-1 mt-10`}
-      /> */}
     </View>
   );
 };
